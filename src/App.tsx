@@ -29,9 +29,6 @@ const AppTask = () => {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(task));
   }, [task]);
-  // const [inputValue, setInputValue] = useState("");
-  // const [task, setTask] = useState<Tasks[]>([]);
-  // const [deletedTasks, setDeletedTasks] = useState<Tasks[]>([]);
 
   const imputTrim = inputValue.trim();
 
