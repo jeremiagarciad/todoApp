@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import InputContainer from "./components/input/input";
 import Container from "./components/container";
@@ -11,10 +11,27 @@ export interface Tasks {
   done: boolean;
 }
 
+//save tasks on the localStorage.
+const getTasksLocalStorage = () => {
+  const taskStored = localStorage.getItem("tasks");
+  if (taskStored) {
+    return JSON.parse(taskStored);
+  } else {
+    return [];
+  }
+};
+
 const AppTask = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [task, setTask] = useState<Tasks[]>([]);
+  const [task, setTask] = useState<Tasks[]>(getTasksLocalStorage);
   const [deletedTasks, setDeletedTasks] = useState<Tasks[]>([]);
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(task));
+  }, [task]);
+  // const [inputValue, setInputValue] = useState("");
+  // const [task, setTask] = useState<Tasks[]>([]);
+  // const [deletedTasks, setDeletedTasks] = useState<Tasks[]>([]);
 
   const imputTrim = inputValue.trim();
 
